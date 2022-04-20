@@ -68,47 +68,47 @@ services:
   #
   # If none of these built-in configurations suit your needs, then you can create your own Caddyfile, see:
   # https://caddyserver.com/docs/caddyfile
-  caddy:
-    container_name: caddy
-    image: 'index.docker.io/caddy:2.4.6-alpine@sha256:b5a59725783bab0d65803f87028c68dd6611ca6184040bd98b18797cbe26bdd9'
-    cpus: 4
-    mem_limit: '4g'
-    environment:
-      - 'XDG_DATA_HOME=/caddy-storage/data'
-      - 'XDG_CONFIG_HOME=/caddy-storage/config'
-      - 'SRC_FRONTEND_ADDRESSES=sourcegraph-frontend-0:3080'
-      # Uncomment & update this line when using Let's Encrypt or custom HTTPS certificates:
-      # - 'SRC_SITE_ADDRESS=sourcegraph.example.com'
-      #
-      # Uncomment & update the following line when using HTTPS with Let's Encrypt
-      # - 'SRC_ACME_EMAIL=admin@example.com'
-    volumes:
-      - 'caddy:/caddy-storage'
-      #
-      # Comment out the following line when using HTTPS with either Let's Encrypt or custom certificates
-      - '../caddy/builtins/http.Caddyfile:/etc/caddy/Caddyfile'
-      #
-      # Uncomment the following line when using HTTPS with Let's Encrypt's staging environment
-      # - '../caddy/builtins/https.lets-encrypt-staging.Caddyfile:/etc/caddy/Caddyfile'
-      #
-      # Uncomment the following line when using HTTPS with Let's Encrypt's production environment
-      # IMPORTANT: Strongly recommended to test with the staging configuration above first, see that file for details.
-      # - '../caddy/builtins/https.lets-encrypt-prod.Caddyfile:/etc/caddy/Caddyfile'
-      #
-      # Uncomment the following line when using HTTPS with custom certificates
-      # - '../caddy/builtins/https.custom-cert.Caddyfile:/etc/caddy/Caddyfile'
-      #
-      # Uncomment / update the following line when using HTTPS with custom certificates
-      # - '/LOCAL/CERT/PATH.pem:/sourcegraph.pem'
-      #
-      # Uncomment / update the following line when using HTTPS with custom certificates
-      # - '/LOCAL/KEY/PATH.key:/sourcegraph.key'
-    ports:
-      - '0.0.0.0:80:80'
-      - '0.0.0.0:443:443'
-    networks:
-      - sourcegraph
-    restart: always
+  # caddy:
+  #   container_name: caddy
+  #   image: 'index.docker.io/caddy/caddy:alpine@sha256:83d9aa7a5f1bbcc0fc1b4720c183a5ec53dae7dc5d9fa555daf3db345010e7f9'
+  #   cpus: 4
+  #   mem_limit: '4g'
+  #   environment:
+  #     - 'XDG_DATA_HOME=/caddy-storage/data'
+  #     - 'XDG_CONFIG_HOME=/caddy-storage/config'
+  #     - 'SRC_FRONTEND_ADDRESSES=sourcegraph-frontend-0:3080'
+  #     # Uncomment & update this line when using Let's Encrypt or custom HTTPS certificates:
+  #     # - 'SRC_SITE_ADDRESS=sourcegraph.example.com'
+  #     #
+  #     # Uncomment & update the following line when using HTTPS with Let's Encrypt
+  #     # - 'SRC_ACME_EMAIL=admin@example.com'
+  #   volumes:
+  #     - 'caddy:/caddy-storage'
+  #     #
+  #     # Comment out the following line when using HTTPS with either Let's Encrypt or custom certificates
+  #     - '../caddy/builtins/http.Caddyfile:/etc/caddy/Caddyfile'
+  #     #
+  #     # Uncomment the following line when using HTTPS with Let's Encrypt's staging environment
+  #     # - '../caddy/builtins/https.lets-encrypt-staging.Caddyfile:/etc/caddy/Caddyfile'
+  #     #
+  #     # Uncomment the following line when using HTTPS with Let's Encrypt's production environment
+  #     # IMPORTANT: Strongly recommended to test with the staging configuration above first, see that file for details.
+  #     # - '../caddy/builtins/https.lets-encrypt-prod.Caddyfile:/etc/caddy/Caddyfile'
+  #     #
+  #     # Uncomment the following line when using HTTPS with custom certificates
+  #     # - '../caddy/builtins/https.custom-cert.Caddyfile:/etc/caddy/Caddyfile'
+  #     #
+  #     # Uncomment / update the following line when using HTTPS with custom certificates
+  #     # - '/LOCAL/CERT/PATH.pem:/sourcegraph.pem'
+  #     #
+  #     # Uncomment / update the following line when using HTTPS with custom certificates
+  #     # - '/LOCAL/KEY/PATH.key:/sourcegraph.key'
+  #   ports:
+  #     - '0.0.0.0:80:80'
+  #     - '0.0.0.0:443:443'
+  #   networks:
+  #     - sourcegraph
+  #   restart: always
 
   # Description: Serves the frontend of Sourcegraph via HTTP(S).
   #
@@ -438,21 +438,21 @@ services:
   # Ports exposed to other Sourcegraph services: none
   # Ports exposed to the public internet: none (HTTP 9090 should be exposed to admins only)
   #
-  prometheus:
-    container_name: prometheus
-    image: 'index.docker.io/sourcegraph/prometheus:3.39.0@sha256:c0e9ad1489c6cc411ee2c51b678987628a66d600094219ca6212178d8fc6a0d0'
-    cpus: 4
-    mem_limit: '8g'
-    volumes:
-      - 'prometheus-v2:/prometheus'
-      - '../prometheus:/sg_prometheus_add_ons'
-    ports:
-      - '0.0.0.0:9090:9090'
-    networks:
-      - sourcegraph
-    restart: always
-    environment:
-      - 'SRC_FRONTEND_INTERNAL=sourcegraph-frontend-internal:3090'
+  # prometheus:
+  #   container_name: prometheus
+  #   image: 'index.docker.io/sourcegraph/prometheus:3.38.1@sha256:6b87f3f27ed8f1dd4b174881c7b05ce1cfff952accd47ed4a243f7c4f455f0cf'
+  #   cpus: 4
+  #   mem_limit: '8g'
+  #   volumes:
+  #     - 'prometheus-v2:/prometheus'
+  #     - '../prometheus:/sg_prometheus_add_ons'
+  #   ports:
+  #     - '0.0.0.0:9090:9090'
+  #   networks:
+  #     - sourcegraph
+  #   restart: always
+  #   environment:
+  #     - 'SRC_FRONTEND_INTERNAL=sourcegraph-frontend-internal:3090'
 
   # Description: Dashboards and graphs for Prometheus metrics.
   #
@@ -465,20 +465,20 @@ services:
   # 'GF_AUTH_PROXY_ENABLED=true'
   # 'GF_AUTH_PROXY_HEADER_NAME='X-Forwarded-User'
   # 'GF_SERVER_ROOT_URL='https://grafana.example.com'
-  grafana:
-    container_name: grafana
-    image: 'index.docker.io/sourcegraph/grafana:3.39.0@sha256:f85d7b1869be86fac16141c102afff429777954834cda720dc04829082f23813'
-    cpus: 1
-    mem_limit: '1g'
-    volumes:
-      - 'grafana:/var/lib/grafana'
-      - '../grafana/datasources:/sg_config_grafana/provisioning/datasources'
-      - '../grafana/dashboards:/sg_grafana_additional_dashboards'
-    ports:
-      - '0.0.0.0:3370:3370'
-    networks:
-      - sourcegraph
-    restart: always
+  # grafana:
+  #   container_name: grafana
+  #   image: 'index.docker.io/sourcegraph/grafana:3.38.1@sha256:0297df7714cf349085e738c6d1c4c345d660ca2292723c918b7a5d34a68dac38'
+  #   cpus: 1
+  #   mem_limit: '1g'
+  #   volumes:
+  #     - 'grafana:/var/lib/grafana'
+  #     - '../grafana/datasources:/sg_config_grafana/provisioning/datasources'
+  #     - '../grafana/dashboards:/sg_grafana_additional_dashboards'
+  #   ports:
+  #     - '0.0.0.0:3370:3370'
+  #   networks:
+  #     - sourcegraph
+  #   restart: always
 
   # Description: Publishes Prometheus metrics about Docker containers.
   #
@@ -486,24 +486,24 @@ services:
   # Ports exposed to other Sourcegraph services: 8080/TCP
   # Ports exposed to the public internet: none
   #
-  cadvisor:
-    container_name: cadvisor
-    image: 'index.docker.io/sourcegraph/cadvisor:3.39.0@sha256:386353189f8dee6462a9632832951a0560329b335186a2ff0cf8927bbafff3aa'
-    cpus: 1
-    mem_limit: '1g'
-    volumes:
-      - '/:/rootfs:ro'
-      - '/var/run:/var/run:ro'
-      - '/sys:/sys:ro'
-      - '/var/lib/docker/:/var/lib/docker:ro'
-      - '/dev/disk/:/dev/disk:ro'
-      # Uncomment to enable container monitoring on MacOS
-      # - '/var/run/docker.sock:/var/run/docker.sock:ro'
-    networks:
-      - sourcegraph
-    restart: always
-    command:
-      - --port=8080
+  # cadvisor:
+  #   container_name: cadvisor
+  #   image: 'index.docker.io/sourcegraph/cadvisor:3.38.1@sha256:21482b5a71fa93f15af0d0b325d525e7174aa59813708357bea06d501af96137'
+  #   cpus: 1
+  #   mem_limit: '1g'
+  #   volumes:
+  #     - '/:/rootfs:ro'
+  #     - '/var/run:/var/run:ro'
+  #     - '/sys:/sys:ro'
+  #     - '/var/lib/docker/:/var/lib/docker:ro'
+  #     - '/dev/disk/:/dev/disk:ro'
+  #     # Uncomment to enable container monitoring on MacOS
+  #     # - '/var/run/docker.sock:/var/run/docker.sock:ro'
+  #   networks:
+  #     - sourcegraph
+  #   restart: always
+  #   command:
+  #     - --port=8080
 
   # Description: Jaeger all-in-one instance
   # (https://www.jaegertracing.io/docs/1.17/getting-started/#all-in-one) for distributed tracing.
@@ -513,26 +513,26 @@ services:
   # Ports exposed to the public internet: none
   # Ports exposed to site admins only: 16686/HTTP
   #
-  jaeger:
-    container_name: jaeger
-    image: 'index.docker.io/sourcegraph/jaeger-all-in-one:3.39.0@sha256:88fd2644c653f7d571bd8cc562ea9209ecc0d5f054ddd1463bdd6e284ad548e9'
-    cpus: 0.5
-    mem_limit: '512m'
-    ports:
-      # Query port
-      - '0.0.0.0:16686:16686'
-      # Collector port
-      - '0.0.0.0:14250:14250'
-      # Agent ports
-      - '0.0.0.0:5778:5778'
-      - '0.0.0.0:6831:6831'
-      - '0.0.0.0:6832:6832'
-    networks:
-      - sourcegraph
-    restart: always
-    command: ['--memory.max-traces=20000']
-    environment:
-      - 'SAMPLING_STRATEGIES_FILE=/etc/jaeger/sampling_strategies.json'
+  # jaeger:
+  #   container_name: jaeger
+  #   image: 'index.docker.io/sourcegraph/jaeger-all-in-one:3.38.1@sha256:300601d63c591f6e94bb45a24baa3ef75a41d78e81015b79b66d2e28fe598372'
+  #   cpus: 0.5
+  #   mem_limit: '512m'
+  #   ports:
+  #     # Query port
+  #     - '0.0.0.0:16686:16686'
+  #     # Collector port
+  #     - '0.0.0.0:14250:14250'
+  #     # Agent ports
+  #     - '0.0.0.0:5778:5778'
+  #     - '0.0.0.0:6831:6831'
+  #     - '0.0.0.0:6832:6832'
+  #   networks:
+  #     - sourcegraph
+  #   restart: always
+  #   command: ['--memory.max-traces=20000']
+  #   environment:
+  #     - 'SAMPLING_STRATEGIES_FILE=/etc/jaeger/sampling_strategies.json'
 
   # Description: PostgreSQL database for various data.
   #
@@ -741,14 +741,14 @@ services:
     restart: always
 
 volumes:
-  caddy:
+  # caddy:
   gitserver-0:
-  grafana:
+  # grafana:
   pgsql:
   codeintel-db:
   codeinsights-db:
   minio:
-  prometheus-v2:
+  # prometheus-v2:
   redis-cache:
   redis-store:
   repo-updater:

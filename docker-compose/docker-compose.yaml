@@ -13,7 +13,7 @@ services:
   # for this container will need to be updated to reflect the new connection information.
   migrator:
     container_name: migrator
-    image: 'index.docker.io/sourcegraph/migrator:4.1.3@sha256:0dc6543f0a755e46d962ba572d501559915716fa55beb3aa644a52f081fcd57e'
+    image: 'harbor.darkowlzz.xyz/dockerhub/sourcegraph/migrator:4.1.3@sha256:0dc6543f0a755e46d962ba572d501559915716fa55beb3aa644a52f081fcd57e'
     cpus: 0.5
     mem_limit: '500m'
     command: ['up']
@@ -67,50 +67,50 @@ services:
   #
   # If none of these built-in configurations suit your needs, then you can create your own Caddyfile, see:
   # https://caddyserver.com/docs/caddyfile
-  caddy:
-    container_name: caddy
-    image: 'index.docker.io/caddy:2.5.1-alpine@sha256:6e62b63d4d7a4826f9e93c904a0e5b886a8bea2234b6569e300924282a2e8e6c'
-    cpus: 4
-    mem_limit: '4g'
-    environment:
-      - 'XDG_DATA_HOME=/caddy-storage/data'
-      - 'XDG_CONFIG_HOME=/caddy-storage/config'
-      - 'SRC_FRONTEND_ADDRESSES=sourcegraph-frontend-0:3080'
-      # Uncomment & update this line when using Let's Encrypt or custom HTTPS certificates:
-      # - 'SRC_SITE_ADDRESS=sourcegraph.example.com'
-      #
-      # Uncomment & update the following line when using HTTPS with Let's Encrypt
-      # - 'SRC_ACME_EMAIL=admin@example.com'
-    volumes:
-      - 'caddy:/caddy-storage'
-      #
-      # IMPORTANT: if a customer uses a reverse proxy in front of Caddy
-      # the configuration files below must be updated to include trusted_proxies
-      #
-      # Comment out the following line when using HTTPS with either Let's Encrypt or custom certificates
-      - '../caddy/builtins/http.Caddyfile:/etc/caddy/Caddyfile'
-      #
-      # Uncomment the following line when using HTTPS with Let's Encrypt's staging environment
-      # - '../caddy/builtins/https.lets-encrypt-staging.Caddyfile:/etc/caddy/Caddyfile'
-      #
-      # Uncomment the following line when using HTTPS with Let's Encrypt's production environment
-      # IMPORTANT: Strongly recommended to test with the staging configuration above first, see that file for details.
-      # - '../caddy/builtins/https.lets-encrypt-prod.Caddyfile:/etc/caddy/Caddyfile'
-      #
-      # Uncomment the following line when using HTTPS with custom certificates
-      # - '../caddy/builtins/https.custom-cert.Caddyfile:/etc/caddy/Caddyfile'
-      #
-      # Uncomment / update the following line when using HTTPS with custom certificates
-      # - '/LOCAL/CERT/PATH.pem:/sourcegraph.pem'
-      #
-      # Uncomment / update the following line when using HTTPS with custom certificates
-      # - '/LOCAL/KEY/PATH.key:/sourcegraph.key'
-    ports:
-      - '0.0.0.0:80:80'
-      - '0.0.0.0:443:443'
-    networks:
-      - sourcegraph
-    restart: always
+  # caddy:
+  #   container_name: caddy
+  #   image: 'index.docker.io/caddy:2.5.1-alpine@sha256:6e62b63d4d7a4826f9e93c904a0e5b886a8bea2234b6569e300924282a2e8e6c'
+  #   cpus: 4
+  #   mem_limit: '4g'
+  #   environment:
+  #     - 'XDG_DATA_HOME=/caddy-storage/data'
+  #     - 'XDG_CONFIG_HOME=/caddy-storage/config'
+  #     - 'SRC_FRONTEND_ADDRESSES=sourcegraph-frontend-0:3080'
+  #     # Uncomment & update this line when using Let's Encrypt or custom HTTPS certificates:
+  #     # - 'SRC_SITE_ADDRESS=sourcegraph.example.com'
+  #     #
+  #     # Uncomment & update the following line when using HTTPS with Let's Encrypt
+  #     # - 'SRC_ACME_EMAIL=admin@example.com'
+  #   volumes:
+  #     - 'caddy:/caddy-storage'
+  #     #
+  #     # IMPORTANT: if a customer uses a reverse proxy in front of Caddy
+  #     # the configuration files below must be updated to include trusted_proxies
+  #     #
+  #     # Comment out the following line when using HTTPS with either Let's Encrypt or custom certificates
+  #     - '../caddy/builtins/http.Caddyfile:/etc/caddy/Caddyfile'
+  #     #
+  #     # Uncomment the following line when using HTTPS with Let's Encrypt's staging environment
+  #     # - '../caddy/builtins/https.lets-encrypt-staging.Caddyfile:/etc/caddy/Caddyfile'
+  #     #
+  #     # Uncomment the following line when using HTTPS with Let's Encrypt's production environment
+  #     # IMPORTANT: Strongly recommended to test with the staging configuration above first, see that file for details.
+  #     # - '../caddy/builtins/https.lets-encrypt-prod.Caddyfile:/etc/caddy/Caddyfile'
+  #     #
+  #     # Uncomment the following line when using HTTPS with custom certificates
+  #     # - '../caddy/builtins/https.custom-cert.Caddyfile:/etc/caddy/Caddyfile'
+  #     #
+  #     # Uncomment / update the following line when using HTTPS with custom certificates
+  #     # - '/LOCAL/CERT/PATH.pem:/sourcegraph.pem'
+  #     #
+  #     # Uncomment / update the following line when using HTTPS with custom certificates
+  #     # - '/LOCAL/KEY/PATH.key:/sourcegraph.key'
+  #   ports:
+  #     - '0.0.0.0:80:80'
+  #     - '0.0.0.0:443:443'
+  #   networks:
+  #     - sourcegraph
+  #   restart: always
 
   # Description: Serves the frontend of Sourcegraph via HTTP(S).
   #
@@ -124,7 +124,7 @@ services:
   # service.
   sourcegraph-frontend-0:
     container_name: sourcegraph-frontend-0
-    image: 'index.docker.io/sourcegraph/frontend:4.1.3@sha256:29b1740fbe8c9c76e567995f40cbf12b50aba5589bba7c97ddfaa12928726720'
+    image: 'harbor.darkowlzz.xyz/dockerhub/sourcegraph/frontend:4.1.3@sha256:29b1740fbe8c9c76e567995f40cbf12b50aba5589bba7c97ddfaa12928726720'
     cpus: 4
     mem_limit: '8g'
     environment:
@@ -166,7 +166,7 @@ services:
   #
   sourcegraph-frontend-internal:
     container_name: sourcegraph-frontend-internal
-    image: 'index.docker.io/sourcegraph/frontend:4.1.3@sha256:29b1740fbe8c9c76e567995f40cbf12b50aba5589bba7c97ddfaa12928726720'
+    image: 'harbor.darkowlzz.xyz/dockerhub/sourcegraph/frontend:4.1.3@sha256:29b1740fbe8c9c76e567995f40cbf12b50aba5589bba7c97ddfaa12928726720'
     cpus: 4
     mem_limit: '8g'
     environment:
@@ -212,7 +212,7 @@ services:
   #
   gitserver-0:
     container_name: gitserver-0
-    image: 'index.docker.io/sourcegraph/gitserver:4.1.3@sha256:1b9cc2af9349ede0096f20ce795433463e6b3b901246b77bd23981cd21f9de92'
+    image: 'harbor.darkowlzz.xyz/dockerhub/sourcegraph/gitserver:4.1.3@sha256:1b9cc2af9349ede0096f20ce795433463e6b3b901246b77bd23981cd21f9de92'
     cpus: 4
     mem_limit: '8g'
     environment:
@@ -236,7 +236,7 @@ services:
   #
   zoekt-indexserver-0:
     container_name: zoekt-indexserver-0
-    image: 'index.docker.io/sourcegraph/search-indexer:4.1.3@sha256:a3ff6f983b1d8db52f2767420d72af1330eaec2a7938bb1a4949bfe00739a9c2'
+    image: 'harbor.darkowlzz.xyz/dockerhub/sourcegraph/search-indexer:4.1.3@sha256:a3ff6f983b1d8db52f2767420d72af1330eaec2a7938bb1a4949bfe00739a9c2'
     cpus: 8
     mem_limit: '16g'
     environment:
@@ -259,7 +259,7 @@ services:
   #
   zoekt-webserver-0:
     container_name: zoekt-webserver-0
-    image: 'index.docker.io/sourcegraph/indexed-searcher:4.1.3@sha256:b82f01effbe0ef407557bbe0f1c83f3bb47f7fab64584532590fae6e125c5e7f'
+    image: 'harbor.darkowlzz.xyz/dockerhub/sourcegraph/indexed-searcher:4.1.3@sha256:b82f01effbe0ef407557bbe0f1c83f3bb47f7fab64584532590fae6e125c5e7f'
     cpus: 8
     mem_limit: '50g'
     environment:
@@ -286,7 +286,7 @@ services:
   #
   searcher-0:
     container_name: searcher-0
-    image: 'index.docker.io/sourcegraph/searcher:4.1.3@sha256:618b2db4ca0637af272c4dbf1f6a8eba766c4845972f3aea96a86ccda6f7fd10'
+    image: 'harbor.darkowlzz.xyz/dockerhub/sourcegraph/searcher:4.1.3@sha256:618b2db4ca0637af272c4dbf1f6a8eba766c4845972f3aea96a86ccda6f7fd10'
     cpus: 2
     mem_limit: '2g'
     environment:
@@ -313,7 +313,7 @@ services:
   #
   github-proxy:
     container_name: github-proxy
-    image: 'index.docker.io/sourcegraph/github-proxy:4.1.3@sha256:72cf265098fca0deb770caf085ccacbc73b522981339bf878625beddeb95f7c3'
+    image: 'harbor.darkowlzz.xyz/dockerhub/sourcegraph/github-proxy:4.1.3@sha256:72cf265098fca0deb770caf085ccacbc73b522981339bf878625beddeb95f7c3'
     cpus: 1
     mem_limit: '1g'
     environment:
@@ -330,7 +330,7 @@ services:
   #
   precise-code-intel-worker:
     container_name: precise-code-intel-worker
-    image: 'index.docker.io/sourcegraph/precise-code-intel-worker:4.1.3@sha256:4d331c87bb9d941856f9bfa7af79d421f602313fe2b7b6bf52afff5ba415b15e'
+    image: 'harbor.darkowlzz.xyz/dockerhub/sourcegraph/precise-code-intel-worker:4.1.3@sha256:4d331c87bb9d941856f9bfa7af79d421f602313fe2b7b6bf52afff5ba415b15e'
     cpus: 2
     mem_limit: '4g'
     environment:
@@ -354,7 +354,7 @@ services:
   #
   repo-updater:
     container_name: repo-updater
-    image: 'index.docker.io/sourcegraph/repo-updater:4.1.3@sha256:b50ff69ce64f60bf99bb63c5c35c3cb33fb3ff51a0b99aa6eb3dda83b21898b9'
+    image: 'harbor.darkowlzz.xyz/dockerhub/sourcegraph/repo-updater:4.1.3@sha256:b50ff69ce64f60bf99bb63c5c35c3cb33fb3ff51a0b99aa6eb3dda83b21898b9'
     cpus: 4
     mem_limit: '4g'
     environment:
@@ -375,7 +375,7 @@ services:
   #
   worker:
     container_name: worker
-    image: 'index.docker.io/sourcegraph/worker:4.1.3@sha256:aebbe0877902c81283ed484a83caa3125cf26b5fd04e02e18ecf34d69409bac2'
+    image: 'harbor.darkowlzz.xyz/dockerhub/sourcegraph/worker:4.1.3@sha256:aebbe0877902c81283ed484a83caa3125cf26b5fd04e02e18ecf34d69409bac2'
     cpus: 4
     mem_limit: '4g'
     environment:
@@ -400,7 +400,7 @@ services:
   #
   syntect-server:
     container_name: syntect-server
-    image: 'index.docker.io/sourcegraph/syntax-highlighter:4.1.3@sha256:7df8ecd68f38bbebfc5de27808b971e2631a2cb590e473a5b964be64e9a01f0d'
+    image: 'harbor.darkowlzz.xyz/dockerhub/sourcegraph/syntax-highlighter:4.1.3@sha256:7df8ecd68f38bbebfc5de27808b971e2631a2cb590e473a5b964be64e9a01f0d'
     cpus: 4
     mem_limit: '6g'
     healthcheck:
@@ -421,7 +421,7 @@ services:
   #
   symbols-0:
     container_name: symbols-0
-    image: 'index.docker.io/sourcegraph/symbols:4.1.3@sha256:fba7a78caf4344d0bc7302c4820f530b72ab31e03cdbb439b3070a6ea36b3b11'
+    image: 'harbor.darkowlzz.xyz/dockerhub/sourcegraph/symbols:4.1.3@sha256:fba7a78caf4344d0bc7302c4820f530b72ab31e03cdbb439b3070a6ea36b3b11'
     cpus: 2
     mem_limit: '4g'
     environment:
@@ -445,21 +445,21 @@ services:
   # Ports exposed to other Sourcegraph services: none
   # Ports exposed to the public internet: none (HTTP 9090 should be exposed to admins only)
   #
-  prometheus:
-    container_name: prometheus
-    image: 'index.docker.io/sourcegraph/prometheus:4.1.3@sha256:76cffb42f65d031e903a3009833dad9d04eb0076f16069b8f00b6bcead0f676d'
-    cpus: 4
-    mem_limit: '8g'
-    volumes:
-      - 'prometheus-v2:/prometheus'
-      - '../prometheus:/sg_prometheus_add_ons'
-    ports:
-      - '0.0.0.0:9090:9090'
-    networks:
-      - sourcegraph
-    restart: always
-    environment:
-      - 'SRC_FRONTEND_INTERNAL=sourcegraph-frontend-internal:3090'
+  # prometheus:
+  #   container_name: prometheus
+  #   image: 'index.docker.io/sourcegraph/prometheus:4.1.3@sha256:76cffb42f65d031e903a3009833dad9d04eb0076f16069b8f00b6bcead0f676d'
+  #   cpus: 4
+  #   mem_limit: '8g'
+  #   volumes:
+  #     - 'prometheus-v2:/prometheus'
+  #     - '../prometheus:/sg_prometheus_add_ons'
+  #   ports:
+  #     - '0.0.0.0:9090:9090'
+  #   networks:
+  #     - sourcegraph
+  #   restart: always
+  #   environment:
+  #     - 'SRC_FRONTEND_INTERNAL=sourcegraph-frontend-internal:3090'
 
   # Description: Dashboards and graphs for Prometheus metrics.
   #
@@ -472,20 +472,20 @@ services:
   # 'GF_AUTH_PROXY_ENABLED=true'
   # 'GF_AUTH_PROXY_HEADER_NAME='X-Forwarded-User'
   # 'GF_SERVER_ROOT_URL='https://grafana.example.com'
-  grafana:
-    container_name: grafana
-    image: 'index.docker.io/sourcegraph/grafana:4.1.3@sha256:3d75d84aa8dcbf7fb247d3400d3ecf538c832df854be782534838d2e7ecd4a5a'
-    cpus: 1
-    mem_limit: '1g'
-    volumes:
-      - 'grafana:/var/lib/grafana'
-      - '../grafana/datasources:/sg_config_grafana/provisioning/datasources'
-      - '../grafana/dashboards:/sg_grafana_additional_dashboards'
-    ports:
-      - '0.0.0.0:3370:3370'
-    networks:
-      - sourcegraph
-    restart: always
+  # grafana:
+  #   container_name: grafana
+  #   image: 'index.docker.io/sourcegraph/grafana:4.1.3@sha256:3d75d84aa8dcbf7fb247d3400d3ecf538c832df854be782534838d2e7ecd4a5a'
+  #   cpus: 1
+  #   mem_limit: '1g'
+  #   volumes:
+  #     - 'grafana:/var/lib/grafana'
+  #     - '../grafana/datasources:/sg_config_grafana/provisioning/datasources'
+  #     - '../grafana/dashboards:/sg_grafana_additional_dashboards'
+  #   ports:
+  #     - '0.0.0.0:3370:3370'
+  #   networks:
+  #     - sourcegraph
+  #   restart: always
 
   # Description: Publishes Prometheus metrics about Docker containers.
   #
@@ -493,32 +493,32 @@ services:
   # Ports exposed to other Sourcegraph services: 8080/TCP
   # Ports exposed to the public internet: none
   #
-  cadvisor:
-    container_name: cadvisor
-    image: 'index.docker.io/sourcegraph/cadvisor:4.1.3@sha256:492800a7d0f64a6d8174926e0d1f6d2819153e55a27d863e361b1e6f6dd69590'
-    cpus: 1
-    mem_limit: '1g'
-    # You may set `privileged` to `false and `cadvisor` will run with reduced privileges.
-    # `cadvisor` requires root privileges in order to display provisioning metrics.
-    # These metrics provide critical information to help you scale the Sourcegraph deployment.
-    # If you would like to bring your own infrastructure monitoring & alerting solution,
-    # you may want to remove the `cadvisor` container completely
-    privileged: true
-    volumes:
-      - '/:/rootfs:ro'
-      - '/var/run:/var/run:ro'
-      - '/sys:/sys:ro'
-      - '/var/lib/docker/:/var/lib/docker:ro'
-      - '/dev/disk/:/dev/disk:ro'
-      # Uncomment to enable container monitoring on MacOS
-      # - '/var/run/docker.sock:/var/run/docker.sock:ro'
-    devices:
-      - '/dev/kmsg'
-    networks:
-      - sourcegraph
-    restart: always
-    command:
-      - --port=8080
+  # cadvisor:
+  #   container_name: cadvisor
+  #   image: 'index.docker.io/sourcegraph/cadvisor:4.1.3@sha256:492800a7d0f64a6d8174926e0d1f6d2819153e55a27d863e361b1e6f6dd69590'
+  #   cpus: 1
+  #   mem_limit: '1g'
+  #   # You may set `privileged` to `false and `cadvisor` will run with reduced privileges.
+  #   # `cadvisor` requires root privileges in order to display provisioning metrics.
+  #   # These metrics provide critical information to help you scale the Sourcegraph deployment.
+  #   # If you would like to bring your own infrastructure monitoring & alerting solution,
+  #   # you may want to remove the `cadvisor` container completely
+  #   privileged: true
+  #   volumes:
+  #     - '/:/rootfs:ro'
+  #     - '/var/run:/var/run:ro'
+  #     - '/sys:/sys:ro'
+  #     - '/var/lib/docker/:/var/lib/docker:ro'
+  #     - '/dev/disk/:/dev/disk:ro'
+  #     # Uncomment to enable container monitoring on MacOS
+  #     # - '/var/run/docker.sock:/var/run/docker.sock:ro'
+  #   devices:
+  #     - '/dev/kmsg'
+  #   networks:
+  #     - sourcegraph
+  #   restart: always
+  #   command:
+  #     - --port=8080
 
   # Description: PostgreSQL database for various data.
   #
@@ -528,7 +528,7 @@ services:
   #
   pgsql:
     container_name: pgsql
-    image: 'index.docker.io/sourcegraph/postgres-12-alpine:4.1.3@sha256:151564ffc41859f255bc30fcca320f7991b86763f16a3b94015585ddcda934bc'
+    image: 'harbor.darkowlzz.xyz/dockerhub/sourcegraph/postgres-12-alpine:4.1.3@sha256:151564ffc41859f255bc30fcca320f7991b86763f16a3b94015585ddcda934bc'
     cpus: 4
     mem_limit: '4g'
     shm_size: '1g'
@@ -556,7 +556,7 @@ services:
   # for this container will need to be updated to reflect the new connection information.
   pgsql-exporter:
     container_name: pgsql-exporter
-    image: 'index.docker.io/sourcegraph/postgres_exporter:4.1.3@sha256:e31686fbc056339a1d229a3172bec7ba74a84990ae3ff1e02147fbb497d4ddff'
+    image: 'harbor.darkowlzz.xyz/dockerhub/sourcegraph/postgres_exporter:4.1.3@sha256:e31686fbc056339a1d229a3172bec7ba74a84990ae3ff1e02147fbb497d4ddff'
     cpus: 0.1
     mem_limit: '50m'
     networks:
@@ -575,7 +575,7 @@ services:
   #
   codeintel-db:
     container_name: codeintel-db
-    image: 'index.docker.io/sourcegraph/codeintel-db:4.1.3@sha256:856bef19c367e687f6153c9384bf1a0c5fa804ce0e6ac4e42c10cc6a263734e9'
+    image: 'harbor.darkowlzz.xyz/dockerhub/sourcegraph/codeintel-db:4.1.3@sha256:856bef19c367e687f6153c9384bf1a0c5fa804ce0e6ac4e42c10cc6a263734e9'
     cpus: 4
     mem_limit: '4g'
     shm_size: '1g'
@@ -603,7 +603,7 @@ services:
   # for this container will need to be updated to reflect the new connection information.
   codeintel-db-exporter:
     container_name: codeintel-db-exporter
-    image: 'index.docker.io/sourcegraph/postgres_exporter:4.1.3@sha256:e31686fbc056339a1d229a3172bec7ba74a84990ae3ff1e02147fbb497d4ddff'
+    image: 'harbor.darkowlzz.xyz/dockerhub/sourcegraph/postgres_exporter:4.1.3@sha256:e31686fbc056339a1d229a3172bec7ba74a84990ae3ff1e02147fbb497d4ddff'
     cpus: 0.1
     mem_limit: '50m'
     networks:
@@ -622,7 +622,7 @@ services:
   #
   codeinsights-db:
     container_name: codeinsights-db
-    image: 'index.docker.io/sourcegraph/codeinsights-db:4.1.3@sha256:896ff048b9d1f59d93ae9f93575128893926e306823bd6159ea9cb14de9b23bb'
+    image: 'harbor.darkowlzz.xyz/dockerhub/sourcegraph/codeinsights-db:4.1.3@sha256:896ff048b9d1f59d93ae9f93575128893926e306823bd6159ea9cb14de9b23bb'
     cpus: 4
     mem_limit: '2g'
     shm_size: '1g'
@@ -655,7 +655,7 @@ services:
   # for this container will need to be updated to reflect the new connection information.
   codeinsights-db-exporter:
     container_name: codeinsights-db-exporter
-    image: 'index.docker.io/sourcegraph/postgres_exporter:4.1.3@sha256:e31686fbc056339a1d229a3172bec7ba74a84990ae3ff1e02147fbb497d4ddff'
+    image: 'harbor.darkowlzz.xyz/dockerhub/sourcegraph/postgres_exporter:4.1.3@sha256:e31686fbc056339a1d229a3172bec7ba74a84990ae3ff1e02147fbb497d4ddff'
     cpus: 0.1
     mem_limit: '50m'
     networks:
@@ -674,7 +674,7 @@ services:
   #
   minio:
     container_name: minio
-    image: 'index.docker.io/sourcegraph/minio:4.1.3@sha256:a8cc7269c2ffecc7c03791d3999ccc30635e5af36cc73e412bec2ac944be7006'
+    image: 'harbor.darkowlzz.xyz/dockerhub/sourcegraph/minio:4.1.3@sha256:a8cc7269c2ffecc7c03791d3999ccc30635e5af36cc73e412bec2ac944be7006'
     cpus: 1
     mem_limit: '1g'
     environment:
@@ -701,7 +701,7 @@ services:
   #
   redis-cache:
     container_name: redis-cache
-    image: 'index.docker.io/sourcegraph/redis-cache:4.1.3@sha256:3053f4f23ed11d466f08c5dd069b9b68e64409a6340ecbd034eaf0a777ad3cff'
+    image: 'harbor.darkowlzz.xyz/dockerhub/sourcegraph/redis-cache:4.1.3@sha256:3053f4f23ed11d466f08c5dd069b9b68e64409a6340ecbd034eaf0a777ad3cff'
     cpus: 1
     mem_limit: '7g'
     volumes:
@@ -717,7 +717,7 @@ services:
   #
   redis-store:
     container_name: redis-store
-    image: 'index.docker.io/sourcegraph/redis-store:4.1.3@sha256:3206afa64188c8f4c9d8b3c2efd245e903d7e38d645688b2aa318d499dec4045'
+    image: 'harbor.darkowlzz.xyz/dockerhub/sourcegraph/redis-store:4.1.3@sha256:3206afa64188c8f4c9d8b3c2efd245e903d7e38d645688b2aa318d499dec4045'
     cpus: 1
     mem_limit: '7g'
     volumes:
@@ -730,18 +730,18 @@ services:
   #
   # Ports exposed to other Sourcegraph services: 4317 (receiver), 55679 (zpages)
   # Ports exposed to the public internet: none
-  otel-collector:
-    container_name: otel-collector
-    image: 'index.docker.io/sourcegraph/opentelemetry-collector:4.1.3@sha256:461b0e829f6575a593bd07b4597d71c297fff2b57efb5ef5831572b9713ef4d7'
-    cpus: 1
-    mem_limit: '1g'
-    networks:
-      - sourcegraph
-    restart: always
-    # Default configurations are shipped in '/etc/otel-collector/configs/'
-    command: ['--config', '/etc/otel-collector/configs/logging.yaml']
-    volumes:
-      - '../otel-collector/config.yaml:/etc/otel-collector/config.yaml'
+  # otel-collector:
+  #   container_name: otel-collector
+  #   image: 'index.docker.io/sourcegraph/opentelemetry-collector:4.1.3@sha256:461b0e829f6575a593bd07b4597d71c297fff2b57efb5ef5831572b9713ef4d7'
+  #   cpus: 1
+  #   mem_limit: '1g'
+  #   networks:
+  #     - sourcegraph
+  #   restart: always
+  #   # Default configurations are shipped in '/etc/otel-collector/configs/'
+  #   command: ['--config', '/etc/otel-collector/configs/logging.yaml']
+  #   volumes:
+  #     - '../otel-collector/config.yaml:/etc/otel-collector/config.yaml'
 
 volumes:
   caddy:
